@@ -291,7 +291,6 @@ function showResults() {
   textContent = textContent.replace(/\n/g, "\n\n");
 
   console.log(handDominance, pointingDevice, ".........");
-  localStorage.setItem("tempData", textContent);
   textField.value = textContent;
   textField.style.color = "black";
 }

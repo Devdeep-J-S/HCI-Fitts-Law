@@ -97,8 +97,6 @@ function start() {
     start(); // Ask again
   } else {
     setCanvas(); //we set the canvas up
-
-    numberOfRectangles = isNaN(numberOfRectangles) ? 5 : numberOfRectangles;
     /*We fill the rectangles array with all the rectangles*/
     for (var i = 0; i < 1; i++) {
       for (var k = 0; k < numberOfRectangles; k++) {
@@ -324,7 +322,6 @@ function showResults() {
 
   console.log(handDominance, pointingDevice, ".........");
   textField.value = textContent;
-  localStorage.setItem("tempData", textContent);
   textField.style.color = "black";
 }
 
