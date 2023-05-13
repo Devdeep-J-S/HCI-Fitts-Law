@@ -43,7 +43,7 @@ export default function Page1() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Head>
         <title>Fitts&apos; Law 1D</title>
-        <script src="/script.js" />
+        <script src="/script.js" async />
       </Head>
       <h1 className="title">Fitts&apos; Law</h1>
       <p id="text">Tap/Click the retangle </p>

@@ -43,7 +43,7 @@ export default function Page2() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24 ">
       <Head>
         <title>Fitts&apos; Law 2D</title>
-        <script src="/script2.js" />
+        <script src="/script2.js" async />
       </Head>
       <h1 className="title">Fitts&apos; Law 2D</h1>
       <p id="text">Let&apos;s get started </p>
