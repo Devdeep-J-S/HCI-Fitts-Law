@@ -250,8 +250,6 @@ function showResults() {
   document.getElementById("btnCopy").style.visibility = "visible";
   document.getElementById("download").style.visibility = "visible";
   var textField = document.getElementById("txtResults");
-
-  var something = document.getElementById;
   var jsonOutput = JSON.stringify(results, null, 2);
   // Parse JSON
   const data = JSON.parse(jsonOutput);

@@ -37,7 +37,7 @@ export default function Page1() {
     element.download = fileName; // Set the custom file name here
     document.body.appendChild(element); // Required for compatibility
     element.click();
-    document.body.removeChild(element); // Clean up
+    // document.body.removeChild(element); // Clean up
   };
 
   return (
