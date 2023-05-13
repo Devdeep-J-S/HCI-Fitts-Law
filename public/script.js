@@ -238,6 +238,7 @@ function checkCollision(pointerPos, rectangle) {
         device: device,
       };
     }
+    console.log(resultObj);
     results.push(resultObj); //insert resultObj to results array
 
     drawSquares(); //draw the next rectangle
