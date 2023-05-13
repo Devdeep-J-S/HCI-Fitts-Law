@@ -42,11 +42,11 @@ export default function Page2() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24 ">
       <Head>
-        <title>Fitts' Law 2D</title>
+        <title>Fitts&apos; Law 2D</title>
         <script src="/script2.js" />
       </Head>
-      <h1 className="title">Fitts' Law 2D</h1>
-      <p id="text">Let's get started </p>
+      <h1 className="title">Fitts&apos; Law 2D</h1>
+      <p id="text">Let&apos;s get started </p>
 
       {/* ask for stuff */}
       <div id="radio-c" className="inline fields">

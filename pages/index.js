@@ -53,18 +53,18 @@ export default function Home() {
           The equation states that the time required to move to a target is
           influenced by the distance to the target and the size of the target.
           The larger the target and the closer it is to the starting point, the
-          faster the movement time. Fitts\' Law is often applied in user
+          faster the movement time. Fitts&apos; Law is often applied in user
           interface design to optimize the placement and size of interactive
           elements such as buttons, icons, and links. By following the
-          principles of Fitts' Law, designers can create interfaces that are
-          easier and more efficient to use, especially in scenarios where quick
-          and accurate pointing tasks are required. It's important to note that
-          Fitts' Law is a simplification and approximation of human movement and
-          doesn't account for all factors that may affect pointing performance,
-          such as user experience, motor control capabilities, or cognitive
-          load. However, it provides valuable insights and guidelines for
-          designing user interfaces that consider the human factors involved in
-          pointing tasks.
+          principles of Fitts&apos; Law, designers can create interfaces that
+          are easier and more efficient to use, especially in scenarios where
+          quick and accurate pointing tasks are required. It&apos;s important to
+          note that Fitts&apos; Law is a simplification and approximation of
+          human movement and doesn&apos;t account for all factors that may
+          affect pointing performance, such as user experience, motor control
+          capabilities, or cognitive load. However, it provides valuable
+          insights and guidelines for designing user interfaces that consider
+          the human factors involved in pointing tasks.
         </p>
       </section>
 

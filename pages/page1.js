@@ -42,10 +42,10 @@ export default function Page1() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <Head>
-        <title>Fitts' Law 1D</title>
+        <title>Fitts&apos; Law 1D</title>
         <script src="/script.js" />
       </Head>
-      <h1 className="title">Fitts' Law</h1>
+      <h1 className="title">Fitts&apos; Law</h1>
       <p id="text">Tap/Click the retangle </p>
 
       {/* ask for stuff */}
