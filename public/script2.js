@@ -249,8 +249,8 @@ function checkCollision(pointerPos, rectangle) {
         id: ++rectId,
         timeElapsed: deltaTime,
         currentRectangle: currentRect,
-        previousRectangle: null,
-        distance: null,
+        previousRectangle: currentRect,
+        distance: 0,
         device: device,
       };
     } else {
