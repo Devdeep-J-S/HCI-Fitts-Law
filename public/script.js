@@ -201,7 +201,7 @@ function download(){
   const element = document.createElement("a");
   const file = new Blob([textContent], { type: "text/plain" });
   element.href = URL.createObjectURL(file);
-  element.download = "Result"; // Set the custom file name here
+  element.download = "Result_1D"; // Set the custom file name here
   document.body.appendChild(element); // Required for compatibility
   element.click();
 }

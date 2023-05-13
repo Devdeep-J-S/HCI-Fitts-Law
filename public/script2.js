@@ -10,6 +10,7 @@ var currentRect = null; //current rectangle displayed
 var previousRect = null; //previous rectangle displayed
 var firstTime = true; //flag to check if it's the first time running the script
 var rectangles = new Array(); //array that contains all rectangles to display
+var textContent;
 var rectangleSizes = [
   { type: 1, width: 20, height: 10 },
   { type: 2, width: 40, height: 20 },
@@ -20,17 +21,6 @@ var rectangleSizes = [
   { type: 7, width: 200, height: 150 },
 ]; //all the 7 different sizes of rectangles
 
-window.onload = function setup() {
-  /*At the beginning we hide some elements not relevant for the experiment*/
-  document.getElementById("btnResults").style.visibility = "hidden";
-  document.getElementById("txtResults").style.visibility = "hidden";
-  document.getElementById("btnCopy").style.visibility = "hidden";
-  document.getElementById("download").style.visibility = "hidden";
-  document.getElementById("back").style.visibility = "hidden";
-  console.log("hello darkness my old friend again");
-
-  //console.log(JSON.stringify(rectangles));
-};
 
 function getRadioValue(name) {
   var radioButtons = document.getElementsByName(name);
@@ -284,7 +274,6 @@ function showResults() {
   var data = JSON.parse(jsonOutput);
 
   // Prepare the text content
-  let textContent = "";
 
   // get radio button data
   var handDominance = getRadioValue("hand-dominance");
@@ -328,11 +317,22 @@ function showResults() {
 /*copy the results to the clipboard*/
 function copytoClipboard() {
   /* Get the text field */
-  var copyText = document.getElementById("txtResults");
+  navigator.clipboard.writeText(textContent).then(
+    function () {
+      alert("Copying to clipboard was successful!");
+    }
+  );
 
-  /* Select the text field */
-  copyText.select();
-  alert("Copy Paste Hmmmm!!!!");
+}
+
+function download(){
+  const element = document.createElement("a");
+  const file = new Blob([textContent], { type: "text/plain" });
+  element.href = URL.createObjectURL(file);
+  element.download = "Result_2D"; // Set the custom file name here
+  document.body.appendChild(element); // Required for compatibility
+  element.click();
+  document.body.removeChild(element); // Clean up
 }
 
 /*determines if it's a mobile browser*/
