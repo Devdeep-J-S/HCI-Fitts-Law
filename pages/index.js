@@ -53,7 +53,7 @@ export default function Home() {
           The equation states that the time required to move to a target is
           influenced by the distance to the target and the size of the target.
           The larger the target and the closer it is to the starting point, the
-          faster the movement time. Fitts' Law is often applied in user
+          faster the movement time. Fitts\' Law is often applied in user
           interface design to optimize the placement and size of interactive
           elements such as buttons, icons, and links. By following the
           principles of Fitts' Law, designers can create interfaces that are
