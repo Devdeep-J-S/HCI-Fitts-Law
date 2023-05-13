@@ -102,3 +102,23 @@ body {
   align-items: center;
   flex-direction: column;
 }
+
+#btnResults{
+  visibility: hidden;
+}
+
+#txtResults{
+  visibility: hidden;
+} 
+
+#btnCopy{
+  visibility: hidden;
+}
+
+#download{
+  visibility: hidden;
+}
+
+#back{
+  visibility: hidden;
+}

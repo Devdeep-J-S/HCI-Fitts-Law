@@ -4,41 +4,25 @@ import Link from "next/link";
 import Script from "next/script";
 
 export default function Page1() {
-  useEffect(() => {
-    function start() {
+    const handleStart = () =>{
       // Call the start function from the script.js file
       window.start();
     }
-
-    function showResults() {
+// 
+    const handleResults = () => {
       // Call the showResults function from the script.js file
       window.showResults();
     }
 
-    function copyToClipboard() {
+    const handleCopy = () => {
       // Call the copytoClipboard function from the script.js file
       window.copytoClipboard();
     }
+   
 
-    document.getElementById("start").addEventListener("click", start);
-    document
-      .getElementById("btnResults")
-      .addEventListener("click", showResults);
-    document
-      .getElementById("btnCopy")
-      .addEventListener("click", copyToClipboard);
-  }, []);
-
-  const handleDownload = (fileName) => {
-    const textContent = document.getElementById("txtResults").value;
-    console.log(textContent);
-    const element = document.createElement("a");
-    const file = new Blob([textContent], { type: "text/plain" });
-    element.href = URL.createObjectURL(file);
-    element.download = fileName; // Set the custom file name here
-    document.body.appendChild(element); // Required for compatibility
-    element.click();
+  const handleDownload = () => {
     // document.body.removeChild(element); // Clean up
+    window.download();
   };
 
   return (
@@ -143,17 +127,17 @@ export default function Page1() {
       </div>
 
       <div id="div1">
-        <button className="button" id="start">
+        <button className="button" id="start" onClick={handleStart}>
           Start!
         </button>
         <br />
-        <button className="button" id="btnResults">
+        <button className="button" id="btnResults" onClick={handleResults}>
           Get Results
         </button>
         <br />
         <input className="result" id="txtResults" type="text" />
         <br />
-        <button className="button" id="btnCopy">
+        <button className="button" id="btnCopy" onClick={handleCopy}>
           Copy Results to Clipboard
         </button>
         <br />

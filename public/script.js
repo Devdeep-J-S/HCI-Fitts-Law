@@ -10,6 +10,7 @@ var currentRect = null; //current rectangle displayed
 var previousRect = null; //previous rectangle displayed
 var firstTime = true; //flag to check if it's the first time running the script
 var rectangles = new Array(); //array that contains all rectangles to display
+var textContent = "";
 var rectangleSizes = [
   { type: 1, width: 20, height: 10 },
   { type: 2, width: 40, height: 20 },
@@ -20,15 +21,16 @@ var rectangleSizes = [
   { type: 7, width: 200, height: 150 },
 ]; //all the 7 different sizes of rectangles
 
-window.onload = function setup() {
-  /*At the beginning we hide some elements not relevant for the experiment*/
-  document.getElementById("btnResults").style.visibility = "hidden";
-  document.getElementById("txtResults").style.visibility = "hidden";
-  document.getElementById("btnCopy").style.visibility = "hidden";
-  document.getElementById("download").style.visibility = "hidden";
-  document.getElementById("back").style.visibility = "hidden";
-  console.log("hello darkness my old friend");
-};
+// window.onload = function setup() {
+//   /*At the beginning we hide some elements not relevant for the experiment*/
+//   document.getElementById("btnResults").style.visibility = "hidden";
+//   document.getElementById("txtResults").style.visibility = "hidden";
+//   document.getElementById("btnCopy").style.visibility = "hidden";
+//   document.getElementById("download").style.visibility = "hidden";
+//   document.getElementById("back").style.visibility = "hidden";
+//   console.log("hello darkness my old friend");
+// };
+
 
 /*this function gives a random position for the rectangles keeping in mind their width
                          to prevent displaying them outside the browser window boundary*/
@@ -195,6 +197,15 @@ function safeDistance(curr, prev) {
   }
 }
 
+function download(){
+  const element = document.createElement("a");
+  const file = new Blob([textContent], { type: "text/plain" });
+  element.href = URL.createObjectURL(file);
+  element.download = "Result"; // Set the custom file name here
+  document.body.appendChild(element); // Required for compatibility
+  element.click();
+}
+
 /*checks if the participant clicked inside a rectangle*/
 function checkCollision(pointerPos, rectangle) {
   if (
@@ -250,14 +261,13 @@ function showResults() {
   // document.getElementById("txtResults").style.visibility = "visible";
   document.getElementById("btnCopy").style.visibility = "visible";
   document.getElementById("download").style.visibility = "visible";
+  document.getElementById("btnResults").style.visibility = "hidden";
   var textField = document.getElementById("txtResults");
   var jsonOutput = JSON.stringify(results, null, 2);
   // Parse JSON
   const data = JSON.parse(jsonOutput);
 
   // Prepare the text content
-  let textContent = "";
-
   // get radio button data
   var handDominance = getRadioValue("hand-dominance");
   var pointingDevice = getRadioValue("pointing-device");
@@ -294,18 +304,20 @@ function showResults() {
   console.log(handDominance, pointingDevice, ".........");
   textField.value = textContent;
   textField.style.color = "black";
+
+  console
 }
 
 /*copy the results to the clipboard*/
 function copytoClipboard() {
   /* Get the text field */
-  var copyText = document.getElementById("txtResults");
+  //copy the results to the clipboard
+  navigator.clipboard.writeText(textContent).then(
+    function () {
+      alert("Copying to clipboard was successful!");
+    }
+  );
 
-  /* Select the text field */
-  copyText.select();
-
-  /* Alert the copied text */
-  alert("Copied !!!!");
 }
 
 /*determines if it's a mobile browser*/
