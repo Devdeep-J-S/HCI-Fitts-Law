@@ -98,6 +98,7 @@ function start() {
   } else {
     setCanvas(); //we set the canvas up
 
+    numberOfRectangles = isNaN(numberOfRectangles) ? 5 : numberOfRectangles;
     /*We fill the rectangles array with all the rectangles*/
     for (var i = 0; i < 1; i++) {
       for (var k = 0; k < numberOfRectangles; k++) {
