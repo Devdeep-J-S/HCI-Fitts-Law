@@ -30,7 +30,9 @@ export default function Page1() {
   }, []);
 
   const handleDownload = (fileName) => {
-    const textContent = document.getElementById("txtResults").value;
+    // const textContent = document.getElementById("txtResults").value;
+    const textContent = localStorage.getItem("tempData");
+    console.log(textContent, "this is in page1");
     const element = document.createElement("a");
     const file = new Blob([textContent], { type: "text/plain" });
     element.href = URL.createObjectURL(file);

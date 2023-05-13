@@ -29,7 +29,8 @@ export default function Page2() {
   }, []);
 
   const handleDownload = (fileName) => {
-    const textContent = document.getElementById("txtResults").value;
+    // const textContent = document.getElementById("txtResults").value;
+    const textContent = localStorage.getItem("tempData");
     const element = document.createElement("a");
     const file = new Blob([textContent], { type: "text/plain" });
     element.href = URL.createObjectURL(file);

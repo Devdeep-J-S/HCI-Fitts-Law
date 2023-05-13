@@ -324,6 +324,7 @@ function showResults() {
 
   console.log(handDominance, pointingDevice, ".........");
   textField.value = textContent;
+  localStorage.setItem("tempData", textContent);
   textField.style.color = "black";
 }
 
