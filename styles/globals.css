@@ -4,8 +4,8 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 24, 25, 245;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -17,20 +17,24 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+    color: rgb(var(--foreground-rgb));
+      background-color: oldlace;
 }
 
-.title {
-  font-size: 100px;
+.titlename{
+  font-size: 50px;
   text-align: center;
   display: flex;
   justify-content: center;
+  color: #007bff;
+}
+
+.title {
+  font-size: 50px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  color: #007bff;
 }
 
 .button-container {
@@ -51,6 +55,54 @@ body {
   text-decoration: none;
   text-align: center;
   transition: background-color 0.3s ease;
+}
+/* .buttons4 {
+  display: flex;
+  justify-content: center;
+} */
+
+/* .button {
+  margin: 0 10px;
+} */
+
+
+.center-hor{
+  left:50%;
+  /* margin-top:0; */
+  /* padding-top:0; */
+  position:relative;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.center-hor2{
+  /* left:50%; */
+  /* margin: 0 10px; */
+  position:absolute;
+  left:51.5%;
+  margin-top: 0%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+
+.center-hor3{
+  /* left:50%; */
+  position:absolute;
+  /* margin-top:20%; */
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -ms-transform: translateY(-20%);
+  transform: translateY(-200%);
+}
+
+.center-hor4{
+  position:absolute;
+  left:46%;
+  /* margin-top:20%; */
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+  -ms-transform: translateY(-20%);
+  transform: translateY(-130%);
 }
 
 .button:hover {
@@ -74,15 +126,82 @@ body {
 
 /* styles.module.css */
 .inline.fields {
-  display: flex;
+  /* display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: flex-start; */
+  /* display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  margin: 0 -0.5em 1em; */
+
+
+  -webkit-text-size-adjust: 100%;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  line-height: 1.4285em;
+  color: green;
+  text-align: left;
+  font-size: 1rem;
+  box-sizing: inherit;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  flex-direction: row;
+  margin: 0 0 1em;
+  -webkit-box-align: center;
+  align-items: center;
+  padding-left: 1%;
+  padding-right: 1%;
+  
+}
+
+.input{
+  -webkit-text-size-adjust: 100%;
+  -webkit-box-direction: normal;
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+  overflow: visible;
+  box-sizing: border-box;
+  padding: 0;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0!important;
+  outline: 0;
+  z-index: 3;
+  width: 17px;
+  height: 17px;
+}
+
+#text{
+  visibility: hidden;
+  color: "#007bff";
 }
 
 .inline.fields .field {
   justify-content: space-between;
   margin-left: 10px;
   margin-bottom: 10px;
+  /* width: 33.33333333%; */
+
+  -webkit-text-size-adjust: 100%;
+  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
+  line-height: 1.4285em;
+  color: green;
+  text-align: left;
+  font-size: 1rem;
+  -webkit-box-direction: normal;
+  box-sizing: inherit;
+  clear: both;
+  -webkit-box-flex: 0;
+  flex: 0 1 auto;
+  margin: 0;
+  padding: 0 1em 0 0;
+  padding-left: 1em;
+  padding-right: 0.1%;
 }
 
 .ui.checkbox label {
@@ -93,6 +212,7 @@ body {
 .texty {
   font-size: 25px;
   text-align: center;
+  /* color:green; */
 }
 
 .needforspeed {
@@ -101,6 +221,11 @@ body {
   font-size: 50px;
   align-items: center;
   flex-direction: column;
+}
+
+.t1{
+  color:green;
+
 }
 
 #btnResults{
@@ -121,4 +246,35 @@ body {
 
 #back{
   visibility: hidden;
+}
+
+
+.inline.fields {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+}
+
+.inline.fields label {
+  font-size: 12px;
+  font-weight: bold;
+  margin-right: 1px;
+}
+
+.field {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: regular;
+  margin-bottom: 20px;
+}
+
+.ui.radio.checkbox {
+  margin-right: 5px;
+}
+
+.needforspeed{
+   color: #007bff;
 }

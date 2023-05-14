@@ -31,12 +31,11 @@ export default function Page1() {
         <title>Fitts&apos; Law 1D</title>
         <script src="/script.js" />
       </Head>
-      <h1 className="title">Fitts&apos; Law</h1>
+      <h1 id="maintitle" className="title">Fitts&apos; Law</h1>
       <p id="text">Tap/Click the retangle </p>
-
       {/* ask for stuff */}
       <div id="radio-c" className="inline fields">
-        <label>Hand Dominance</label>
+        <label className="titlename">Hand Dominance</label>
         <div className="field">
           <div className="ui radio checkbox">
             <input
@@ -45,7 +44,9 @@ export default function Page1() {
               defaultChecked="defaultChecked"
               value="Dominant"
             />
-            <label>Dominant Hand</label>
+            <label>
+              Dominant Hand
+            </label>
           </div>
         </div>
         <div className="field">
@@ -57,7 +58,7 @@ export default function Page1() {
       </div>
 
       <div id="radio-b" className="inline fields">
-        <label>Pointing Device</label>
+        <label className="titlename">Pointing Device</label>
         <div className="field">
           <div className="ui radio checkbox">
             <input
@@ -96,7 +97,7 @@ export default function Page1() {
       </div>
 
       <div id="radio-a" className="inline fields">
-        <label>Device Experience</label>
+        <label className="titlename">Device Experience</label>
         <div className="field">
           <div className="ui radio checkbox">
             <input type="radio" name="device-experience" value="Regular user" />
@@ -126,26 +127,26 @@ export default function Page1() {
         </div>
       </div>
 
-      <div id="div1">
-        <button className="button" id="start" onClick={handleStart}>
+      <div className="buttons4" id="div1">
+        <button className="button center-hor" id="start" onClick={handleStart}>
           Start!
         </button>
         <br />
-        <button className="button" id="btnResults" onClick={handleResults}>
+        <button className="button center-hor2" id="btnResults" onClick={handleResults}>
           Get Results
         </button>
         <br />
         <input className="result" id="txtResults" type="text" />
         <br />
-        <button className="button" id="btnCopy" onClick={handleCopy}>
+        <button className="button center-hor3" id="btnCopy" onClick={handleCopy}>
           Copy Results to Clipboard
         </button>
         <br />
-        <button className="button" id="download" onClick={handleDownload}>
+        <button className="button center-hor4" id="download" onClick={handleDownload}>
           Download Results
         </button>
 
-        <Link className="button" href="/" id="back">
+        <Link className="button center-hor2" href="/" id="back">
           Back
         </Link>
       </div>

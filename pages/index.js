@@ -69,7 +69,15 @@ export default function Home() {
       </section>
 
       <div></div>
-      <p>Submission for HCI project by TEAM Innovative X</p>
+      <div className="needforspeed">
+      <p className="texty t1">Submission for HCI project by TEAM Innovative x</p>
+      <p className="texty t1">Team Members:</p>
+      <p className="texty t1">1. Vrund Rajput - 202001075</p>
+      <p className="texty t1">2. Harsh Kathiriya - 202001088</p>
+      <p className="texty t1">3. Devdeep JS - 202001150</p>
+      <p className="texty t1">4. Prarthee Desai - 202001257</p>
+      <p className="texty t1">5. Devansh Patel - 202001262</p>
+      </div>
     </main>
   );
 }
