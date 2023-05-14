@@ -1,5 +1,3 @@
-// reference : Daniel Martinez
-
 var middle; //Middle of the browser windows to draw the line
 var canvas; //Main canvas
 var ctx; //canvas context
@@ -10,6 +8,7 @@ var currentRect = null; //current rectangle displayed
 var previousRect = null; //previous rectangle displayed
 var firstTime = true; //flag to check if it's the first time running the script
 var rectangles = new Array(); //array that contains all rectangles to display
+var textContent;
 var rectangleSizes = [
   { type: 1, width: 20, height: 10 },
   { type: 2, width: 40, height: 20 },
@@ -20,18 +19,6 @@ var rectangleSizes = [
   { type: 7, width: 200, height: 150 },
 ]; //all the 7 different sizes of rectangles
 
-window.onload = function setup() {
-  /*At the beginning we hide some elements not relevant for the experiment*/
-  document.getElementById("btnResults").style.visibility = "hidden";
-  document.getElementById("txtResults").style.visibility = "hidden";
-  document.getElementById("btnCopy").style.visibility = "hidden";
-  document.getElementById("download").style.visibility = "hidden";
-  document.getElementById("back").style.visibility = "hidden";
-  console.log("hello darkness my old friend again");
-
-  //console.log(JSON.stringify(rectangles));
-};
-
 function getRadioValue(name) {
   var radioButtons = document.getElementsByName(name);
   for (var i = 0; i < radioButtons.length; i++) {
@@ -41,6 +28,16 @@ function getRadioValue(name) {
   }
   return null;
 }
+
+window.onload = function setup() {
+  /*At the beginning we hide some elements not relevant for the experiment*/
+  document.getElementById("btnResults").style.visibility = "hidden";
+  document.getElementById("txtResults").style.visibility = "hidden";
+  document.getElementById("btnCopy").style.visibility = "hidden";
+  document.getElementById("download").style.visibility = "hidden";
+  document.getElementById("back").style.visibility = "hidden";
+  console.log("hello darkness my old friend");
+};
 
 function funk_me() {
   let maxVal = 0xffffff; // 16777215
@@ -69,15 +66,16 @@ function generatePositionY(rectHeight) {
 
 /*function to get the Dimensions of the Browser*/
 var getWindowDimensions = () => {
-  var width = Math.min(
-    document.body.scrollWidth,
-    document.documentElement.scrollWidth,
-    document.body.offsetWidth,
-    document.documentElement.offsetWidth,
-    document.documentElement.clientWidth
-  );
+  // var width = Math.min(
+  //   document.body.scrollWidth,
+  //   document.documentElement.scrollWidth,
+  //   document.body.offsetWidth,
+  //   document.documentElement.offsetWidth,
+  //   document.documentElement.clientWidth
+  // );
+  var width = document.documentElement.clientWidth;
 
-  var height = Math.max(
+  var height = Math.min(
     document.body.scrollHeight,
     document.documentElement.scrollHeight,
     document.body.offsetHeight,
@@ -87,7 +85,6 @@ var getWindowDimensions = () => {
 
   return { width, height };
 };
-
 /*Starts the experiment*/
 function start() {
   var numberOfRectangles = parseInt(prompt("Enter the number of rectangles:"));
@@ -121,9 +118,10 @@ function start() {
     document.getElementById("radio-b").style.visibility = "hidden";
     document.getElementById("radio-a").style.visibility = "hidden";
     document.getElementById("radio-c").style.visibility = "hidden";
-
+    document.getElementById("maintitle").style.visibility = "hidden";
     document.body.style.background = "white";
-    document.body.style.margin = "0px";
+
+    // document.body.style.margin = "0px";
     //drawLine(); //draws the line in the middle of the browser
     drawSquares(); //main function to display the rectangles
   }
@@ -136,6 +134,9 @@ function setCanvas() {
   canvas.width = dimensions.width;
   canvas.height = dimensions.height - dimensions.height * 0.5; //reduce 20% the height of the canvas based on the browser to avoid scrolling (just to be safe)
   canvas.style.border = "0px solid";
+  canvas.style.margin = "0px";
+  canvas.style.padding = "0px";
+  canvas.style.overflow = "hidden";
   //middle = canvas.height/2;
   ctx = canvas.getContext("2d");
 }
@@ -189,10 +190,12 @@ function drawSquares() {
   } //once the array is done, the experiment is finished
   else {
     document.getElementById("text").innerHTML =
-      "Task Done</br> Good job for a Noob!!!";
-    document.body.style.background = "black";
+      "Task Done! Please click on the button below to see the results";
     document.getElementById("btnResults").style.visibility = "visible";
     document.getElementById("back").style.visibility = "visible";
+    document.getElementById("canvasLayer").style.visibility = "hidden";
+    document.getElementById("maintitle").style.visibility = "visible";
+    document.getElementById("text").style.visibility = "visible";
     ctx.clearRect(0, 0, canvas.width, canvas.height); //clear the canvas
   }
 }
@@ -249,8 +252,8 @@ function checkCollision(pointerPos, rectangle) {
         id: ++rectId,
         timeElapsed: deltaTime,
         currentRectangle: currentRect,
-        previousRectangle: null,
-        distance: null,
+        previousRectangle: currentRect,
+        distance: 0,
         device: device,
       };
     } else {
@@ -275,17 +278,17 @@ function checkCollision(pointerPos, rectangle) {
 
 /*displays the results array as a JSON string which later can be parsed in an online tool for further analysis*/
 function showResults() {
+  document.body.style.backgroundColor = "black";
   // document.getElementById("txtResults").style.visibility = "visible";
   document.getElementById("btnCopy").style.visibility = "visible";
   document.getElementById("download").style.visibility = "visible";
+  document.getElementById("btnResults").style.visibility = "hidden";
   var textField = document.getElementById("txtResults");
   var jsonOutput = JSON.stringify(results, null, 2);
   // Parse JSON
-  var data = JSON.parse(jsonOutput);
+  const data = JSON.parse(jsonOutput);
 
   // Prepare the text content
-  let textContent = "";
-
   // get radio button data
   var handDominance = getRadioValue("hand-dominance");
   var pointingDevice = getRadioValue("pointing-device");
@@ -294,6 +297,7 @@ function showResults() {
   textContent += `Hand Dominance : ${handDominance}\n`;
   textContent += `Pointing Experience : ${pointingDevice}\n`;
   textContent += `Device Experience : ${deviceExpereience}\n`;
+
   // Iterate over each object in the data array
   data.forEach((obj) => {
     textContent += `Rectangle ID: ${obj.id}\n`;
@@ -316,9 +320,6 @@ function showResults() {
   });
 
   // Add spaces to the text content
-  textContent = textContent.replace(/\n/g, "\n\n");
-  var handDominance = getRadioValue("hand-dominance");
-  var pointingDevice = getRadioValue("pointing-device");
 
   console.log(handDominance, pointingDevice, ".........");
   textField.value = textContent;
@@ -328,11 +329,20 @@ function showResults() {
 /*copy the results to the clipboard*/
 function copytoClipboard() {
   /* Get the text field */
-  var copyText = document.getElementById("txtResults");
+  //copy the results to the clipboard
+  navigator.clipboard.writeText(textContent).then(function () {
+    alert("Copying to clipboard was successful!");
+  });
+}
 
-  /* Select the text field */
-  copyText.select();
-  alert("Copy Paste Hmmmm!!!!");
+function download() {
+  const element = document.createElement("a");
+  const file = new Blob([textContent], { type: "text/plain" });
+  element.href = URL.createObjectURL(file);
+  element.download = "Result_2D"; // Set the custom file name here
+  document.body.appendChild(element); // Required for compatibility
+  element.click();
+  document.body.removeChild(element); // Clean up
 }
 
 /*determines if it's a mobile browser*/

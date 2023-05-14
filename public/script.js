@@ -1,5 +1,3 @@
-// Reference : Daniel Martinez
-
 var middle; //Middle of the browser windows to draw the line
 var canvas; //Main canvas
 var ctx; //canvas context
@@ -10,6 +8,7 @@ var currentRect = null; //current rectangle displayed
 var previousRect = null; //previous rectangle displayed
 var firstTime = true; //flag to check if it's the first time running the script
 var rectangles = new Array(); //array that contains all rectangles to display
+var textContent = "";
 var rectangleSizes = [
   { type: 1, width: 20, height: 10 },
   { type: 2, width: 40, height: 20 },
@@ -18,6 +17,10 @@ var rectangleSizes = [
   { type: 5, width: 100, height: 50 },
   { type: 6, width: 300, height: 70 },
   { type: 7, width: 200, height: 150 },
+  { type: 8, width: 400, height: 300 },
+  { type: 9, width: 500, height: 400 },
+  { type: 10, width: 600, height: 500 },
+  { type: 11, width: 58, height: 600 },
 ]; //all the 7 different sizes of rectangles
 
 window.onload = function setup() {
@@ -39,13 +42,14 @@ function generatePosition(rectWidth) {
 
 /*function to get the Dimensions of the Browser*/
 var getWindowDimensions = () => {
-  var width = Math.min(
-    document.body.scrollWidth,
-    document.documentElement.scrollWidth,
-    document.body.offsetWidth,
-    document.documentElement.offsetWidth,
-    document.documentElement.clientWidth
-  );
+  // var width = Math.min(
+  //   document.body.scrollWidth,
+  //   document.documentElement.scrollWidth,
+  //   document.body.offsetWidth,
+  //   document.documentElement.offsetWidth,
+  //   document.documentElement.clientWidth
+  // );
+  var width = document.documentElement.clientWidth;
 
   var height = Math.min(
     document.body.scrollHeight,
@@ -54,6 +58,7 @@ var getWindowDimensions = () => {
     document.documentElement.offsetHeight,
     document.documentElement.clientHeight
   );
+  // var height = document.documentElement.scrollHeight-document.documentElement.clientHeight;
 
   return { width, height };
 };
@@ -90,10 +95,9 @@ function start() {
     numberOfRectangles = isNaN(numberOfRectangles) ? 5 : numberOfRectangles;
     /*We fill the rectangles array with all the rectangles*/
     for (var k = 0; k < numberOfRectangles; ++k) {
-      var j = Math.floor(Math.random() * 7);
+      var j = Math.floor(Math.random() * 11);
       var posX = generatePosition(rectangleSizes[j].width); //obtain a random position along the line for this rectangle.
       /*create a rectangle object*/
-
       var rectangle = {
         x: posX,
         y: middle - rectangleSizes[j].height / 2,
@@ -103,14 +107,12 @@ function start() {
       };
       rectangles.push(rectangle); //insert rectangle in array
     }
-
-    document.getElementById("text").innerHTML = "";
     document.getElementById("start").style.visibility = "hidden"; //hides start button
     document.getElementById("radio-b").style.visibility = "hidden";
     document.getElementById("radio-a").style.visibility = "hidden";
     document.getElementById("radio-c").style.visibility = "hidden";
     document.getElementById("back").style.visibility = "hidden";
-
+    document.getElementById("maintitle").style.visibility = "hidden";
     document.body.style.background = "white";
     document.body.style.margin = "0px";
     drawLine(); //draws the line in the middle of the browser
@@ -123,7 +125,7 @@ function setCanvas() {
   canvas = document.getElementById("canvasLayer");
   var dimensions = getWindowDimensions();
   canvas.width = dimensions.width;
-  canvas.height = dimensions.height - dimensions.height * 0.9; //reduce 10% the height of the canvas based on the browser to avoid scrolling (just to be safe)
+  canvas.height = dimensions.height * 0.1; //reduce 10% the height of the canvas based on the browser to avoid scrolling (just to be safe)
   canvas.style.border = "0px solid";
   middle = canvas.height / 2;
   ctx = canvas.getContext("2d");
@@ -132,6 +134,7 @@ function setCanvas() {
 /*draws the line in the middle of the browser*/
 function drawLine() {
   var dimensions = getWindowDimensions();
+  canvas.style.position = "absolute";
   ctx.moveTo(0, middle);
   ctx.lineTo(dimensions.width, middle);
   ctx.stroke();
@@ -175,10 +178,12 @@ function drawSquares() {
     }
   } //once the array is done, the experiment is finished
   else {
-    document.getElementById("text").innerHTML = "Fitts 1D task finished";
-    document.body.style.background = "black";
+    document.getElementById("text").innerHTML =
+      "Task Done! Please click on the button below to see the results.";
+    document.getElementById("text").style.visibility = "visible";
     document.getElementById("btnResults").style.visibility = "visible";
     document.getElementById("back").style.visibility = "visible";
+    document.getElementById("maintitle").style.visibility = "visible";
     ctx.clearRect(0, 0, canvas.width, canvas.height); //clear the canvas
   }
 }
@@ -193,6 +198,16 @@ function safeDistance(curr, prev) {
     temp.x = generatePosition(curr.width);
     return safeDistance(temp, prev);
   }
+}
+
+// good one var approch not json
+function download() {
+  const element = document.createElement("a");
+  const file = new Blob([textContent], { type: "text/plain" });
+  element.href = URL.createObjectURL(file);
+  element.download = "Result_1D"; // Set the custom file name here
+  document.body.appendChild(element); // Required for compatibility
+  element.click();
 }
 
 /*checks if the participant clicked inside a rectangle*/
@@ -220,8 +235,8 @@ function checkCollision(pointerPos, rectangle) {
         id: ++rectId,
         timeElapsed: deltaTime,
         currentRectangle: currentRect,
-        previousRectangle: null,
-        distance: null,
+        previousRectangle: currentRect,
+        distance: 0,
         device: device,
       };
     } else {
@@ -247,17 +262,17 @@ function checkCollision(pointerPos, rectangle) {
 
 /*displays the results array as a JSON string which later can be parsed in an online tool for further analysis*/
 function showResults() {
+  document.body.style.backgroundColor = "black";
   // document.getElementById("txtResults").style.visibility = "visible";
   document.getElementById("btnCopy").style.visibility = "visible";
   document.getElementById("download").style.visibility = "visible";
+  document.getElementById("btnResults").style.visibility = "hidden";
   var textField = document.getElementById("txtResults");
   var jsonOutput = JSON.stringify(results, null, 2);
   // Parse JSON
   const data = JSON.parse(jsonOutput);
 
   // Prepare the text content
-  let textContent = "";
-
   // get radio button data
   var handDominance = getRadioValue("hand-dominance");
   var pointingDevice = getRadioValue("pointing-device");
@@ -294,18 +309,17 @@ function showResults() {
   console.log(handDominance, pointingDevice, ".........");
   textField.value = textContent;
   textField.style.color = "black";
+
+  console;
 }
 
 /*copy the results to the clipboard*/
 function copytoClipboard() {
   /* Get the text field */
-  var copyText = document.getElementById("txtResults");
-
-  /* Select the text field */
-  copyText.select();
-
-  /* Alert the copied text */
-  alert("Copied !!!!");
+  //copy the results to the clipboard
+  navigator.clipboard.writeText(textContent).then(function () {
+    alert("Copying to clipboard was successful!");
+  });
 }
 
 /*determines if it's a mobile browser*/
